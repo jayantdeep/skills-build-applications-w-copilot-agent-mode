@@ -1,16 +1,32 @@
-# React + Vite
+# OctoFit Tracker frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+The React 19 and Vite presentation tier uses React Router for navigation and reads
+the users, teams, activities, leaderboard, and workout APIs.
 
-Currently, two official plugins are available:
+## API configuration
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+For the frontend to reach the backend through a GitHub Codespace, define
+`VITE_CODESPACE_NAME` in `octofit-tracker/frontend/.env.local`:
 
-## React Compiler
+```dotenv
+VITE_CODESPACE_NAME=your-codespace-name
+```
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Copy `.env.example` as a starting point and replace the example with the value
+of the `CODESPACE_NAME` environment variable. Vite exposes only variables with
+the `VITE_` prefix to browser code. Restart the Vite development server after
+changing `.env.local`.
 
-## Expanding the ESLint configuration
+When `VITE_CODESPACE_NAME` is unset, the API client safely falls back to
+`http://localhost:8000`, which is suitable when the backend runs locally.
+`VITE_API_BASE_URL` can optionally override the computed API origin.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Development commands
+
+Run commands from the repository root without changing directories:
+
+```bash
+npm --prefix octofit-tracker/frontend run dev
+npm --prefix octofit-tracker/frontend run build
+npm --prefix octofit-tracker/frontend run lint
+```

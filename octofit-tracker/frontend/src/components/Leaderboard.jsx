@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { apiBase, fetch } from './api';
+import { apiBase, fetch } from '../api';
 
 export default function Leaderboard() {
   const [rows, setRows] = useState([]);

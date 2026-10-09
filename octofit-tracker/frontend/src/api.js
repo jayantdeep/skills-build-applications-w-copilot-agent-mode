@@ -24,7 +24,26 @@ export async function fetchResource(path, options = {}) {
   return response.json();
 }
 
-export { fetchResource as fetch };
+export function normalizeCollection(payload) {
+  if (Array.isArray(payload)) return payload;
+  if (payload && typeof payload === 'object') {
+    if (Array.isArray(payload.results)) return payload.results;
+    if (Array.isArray(payload.items)) return payload.items;
+    if (Array.isArray(payload.data)) return payload.data;
+    if (payload.data && typeof payload.data === 'object') {
+      if (Array.isArray(payload.data.results)) return payload.data.results;
+      if (Array.isArray(payload.data.items)) return payload.data.items;
+    }
+  }
+
+  throw new Error('The API response did not contain a list of records.');
+}
+
+export async function fetchCollection(path) {
+  return normalizeCollection(await fetchResource(path));
+}
+
+export { fetchCollection as fetch };
 
 export const saveResource = (path, value, id) =>
   fetchResource(id ? `${path}${id}` : path, {

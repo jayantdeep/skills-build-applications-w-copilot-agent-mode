@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import ResourceManager from './ResourceManager';
-import { fetch } from './api';
+import ResourceManager from '../ResourceManager';
+import { fetch } from '../api';
 
 const endpoint = '/api/users/';
 const fields = [

@@ -1,12 +1,12 @@
 import { Link, NavLink, Route, Routes } from 'react-router-dom'
 import logoUrl from '../../../docs/octofitapp-small.png'
-import Activities from './Activities'
-import Leaderboard from './Leaderboard'
-import Teams from './Teams'
-import Users from './Users'
-import Workouts from './Workouts'
+import Activities from './components/Activities'
+import Leaderboard from './components/Leaderboard'
+import Teams from './components/Teams'
+import Users from './components/Users'
+import Workouts from './components/Workouts'
 import './App.css'
-import { fetchResource } from './api'
+import { fetchCollection } from './api'
 import { useEffect, useState } from 'react'
 
 const navItems = [
@@ -25,11 +25,11 @@ function Dashboard() {
   useEffect(() => {
     let mounted = true
     Promise.all([
-      fetchResource('/api/users/'),
-      fetchResource('/api/teams/'),
-      fetchResource('/api/activities/'),
-      fetchResource('/api/leaderboard/'),
-      fetchResource('/api/workouts/'),
+      fetchCollection('/api/users/'),
+      fetchCollection('/api/teams/'),
+      fetchCollection('/api/activities/'),
+      fetchCollection('/api/leaderboard/'),
+      fetchCollection('/api/workouts/'),
     ]).then(([users, teams, activities, leaderboard, workouts]) => {
       if (!mounted) return
       const weekStart = new Date()

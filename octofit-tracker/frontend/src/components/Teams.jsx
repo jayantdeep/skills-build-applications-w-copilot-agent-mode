@@ -1,5 +1,5 @@
-import ResourceManager from './ResourceManager';
-import { fetch } from './api';
+import ResourceManager from '../ResourceManager';
+import { fetch } from '../api';
 
 const fields = [
   { name: 'name', label: 'Team name', required: true },
