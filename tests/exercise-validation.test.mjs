@@ -178,8 +178,9 @@ test('a closed but unmerged pull request cannot complete the exercise', () => {
 });
 
 test('the starter template cannot pass Step 2 before learner setup', () => {
+  const root = temporaryDirectory();
   for (const checkName of ['step2-react', 'step2-express', 'step2-mongoose']) {
-    assert.throws(() => checks[checkName](repositoryRoot), /Missing required file/);
+    assert.throws(() => checks[checkName](root), /Missing required file/);
   }
 });
 
