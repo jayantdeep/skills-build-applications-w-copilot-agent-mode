@@ -1,11 +1,14 @@
 import { Router } from 'express';
 import type { Model } from 'mongoose';
 
-export function createResourceRouter(model: Model<any, any, any, any, any, any, any>) {
+export function createResourceRouter(
+  model: Model<any, any, any, any, any, any, any>,
+  populatePaths: string[] = [],
+) {
   const router = Router();
 
   router.get('/', async (_request, response) => {
-    response.json(await model.find());
+    response.json(await model.find().populate(populatePaths));
   });
 
   router.post('/', async (request, response) => {
@@ -14,7 +17,7 @@ export function createResourceRouter(model: Model<any, any, any, any, any, any, 
   });
 
   router.get('/:id', async (request, response) => {
-    const record = await model.findById(request.params.id);
+    const record = await model.findById(request.params.id).populate(populatePaths);
     if (!record) {
       response.status(404).json({ error: 'Record not found' });
       return;
@@ -26,7 +29,7 @@ export function createResourceRouter(model: Model<any, any, any, any, any, any, 
     const record = await model.findByIdAndUpdate(request.params.id, request.body, {
       new: true,
       runValidators: true,
-    });
+    }).populate(populatePaths);
     if (!record) {
       response.status(404).json({ error: 'Record not found' });
       return;
@@ -38,7 +41,7 @@ export function createResourceRouter(model: Model<any, any, any, any, any, any, 
     const record = await model.findByIdAndUpdate(request.params.id, request.body, {
       new: true,
       runValidators: true,
-    });
+    }).populate(populatePaths);
     if (!record) {
       response.status(404).json({ error: 'Record not found' });
       return;

@@ -26,10 +26,10 @@ app.use((_request, response, next) => {
   next();
 });
 
-app.use('/api/users/', createResourceRouter(User));
-app.use('/api/teams/', createResourceRouter(Team));
-app.use('/api/activities/', createResourceRouter(Activity));
-app.use('/api/leaderboard/', createResourceRouter(Leaderboard));
+app.use('/api/users/', createResourceRouter(User, ['team']));
+app.use('/api/teams/', createResourceRouter(Team, ['members']));
+app.use('/api/activities/', createResourceRouter(Activity, ['user']));
+app.use('/api/leaderboard/', createResourceRouter(Leaderboard, ['user']));
 app.use('/api/workouts/', createResourceRouter(Workout));
 
 app.get('/api/health', (_request, response) => {
